@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <title>Reservas de salas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="handlebars-helpers.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('https://v2-api.sheety.co/27cb78b6dc73a5954a60c4187a6413ab/soscovid19/dados/', function (data) {
+                var template = Handlebars.compile($('#item-template').html());
+                $('#items').html(template(data))
+            })
+        })
+    </script>
+    <script id="item-template" type="text/x-handlebars-template">
+        {{#each dados}}
+            {{#if_equals categoria 'Voluntariado'}}
+            <div class="col-md-4">
+                <div class="team-player">
+                    <a class="card card-profile" href="{{url}}" target="_blank">
+                        <strong class="card-title h4">
+                            {{titulo}}
+                        </strong>
+                        <span class="card-body">
+                            <span class="card-description">
+                                <strong>Nome:</strong> {{nome}}<br />
+                                <strong>Email:</strong> {{email}}<br />
+                                <strong>Telefone:</strong> {{telefone}}<br />
+                                <strong>Cidade:</strong> {{local}}
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            {{/if_equals}}
+            {{#if_equals categoria 'Tratamento'}}
+            <div class="col-md-4">
+                <div class="team-player">
+                    <a class="card card-profile" href="{{url}}" target="_blank">
+                        <strong class="card-title h4">
+                            {{titulo}}
+                        </strong>
+                        <span class="card-body">
+                                <span class="card-description">
+                                    <strong>Nome:</strong> {{nome}}<br />
+                                    <strong>Email:</strong> {{email}}<br />
+                                    <strong>Telefone:</strong> {{telefone}}<br />
+                                    <strong>Cidade:</strong> {{local}}
+                                </span>
+                            </span>
+                    </a>
+                </div>
+            </div>
+            {{/if_equals}}
+        {{/each}}
+    </script>
+</head>
+
+<body>
+<div id="items">Carregando...</div>
+</body>
+
+</html>
